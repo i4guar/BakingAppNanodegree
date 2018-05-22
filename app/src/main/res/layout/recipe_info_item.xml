@@ -8,18 +8,28 @@
 
     <TextView
         android:id="@+id/recipe_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="30sp"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/add_to_widget"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tool:text="NutellaPie" />
 
+    <Button
+        android:id="@+id/add_to_widget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/primaryDarkColor"
+        android:text="ADD TO WIDGET"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:id="@+id/ingredients"
         android:layout_width="match_parent"

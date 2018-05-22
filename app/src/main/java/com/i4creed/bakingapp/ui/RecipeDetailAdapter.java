@@ -1,15 +1,19 @@
 package com.i4creed.bakingapp.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.MyUtil;
 import com.i4creed.bakingapp.model.Ingredient;
@@ -137,6 +141,8 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     public class InfoViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.add_to_widget)
+        Button addToWidget;
         @BindView(R.id.recipe_title)
         TextView recipeTitle;
         @BindView(R.id.ingredients)
@@ -158,6 +164,14 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 tv.setText(String.format("%s: %s %s", i.getIngredient(), i.getQuantity(), i.getMeasure()));
                 ingredients.addView(tv);
             }
+            addToWidget.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String json = recipe == null ? null : new Gson().toJson(recipe);
+                    SharedPreferences sharedPreferences = ingredients.getContext().getSharedPreferences("preference_file_key",Context.MODE_PRIVATE);
+                    sharedPreferences.edit().putString("recipe", json).apply();
+                }
+            });
         }
     }
 
