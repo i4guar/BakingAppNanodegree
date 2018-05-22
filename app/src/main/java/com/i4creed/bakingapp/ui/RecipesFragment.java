@@ -3,6 +3,7 @@ package com.i4creed.bakingapp.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +20,8 @@ import butterknife.ButterKnife;
  */
 public class RecipesFragment extends Fragment {
 
-    @BindView(R.id.recipes_list) RecyclerView recipesRecyclerView;
+    @BindView(R.id.recipes_list)
+    RecyclerView recipesRecyclerView;
 
     MainActivity main;
     public RecipesFragment() {
@@ -33,12 +35,17 @@ public class RecipesFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_recipes, container, false);
         ButterKnife.bind(this, root);
-
-        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            main = (MainActivity) getActivity();
+        main = (MainActivity) getActivity();
         if (main != null) {
+            int spanCount = 1;
+            if(main.isTwoPane()) {
+                spanCount = 3;
+            }
+            recipesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),spanCount));
+
             recipesRecyclerView.setAdapter(main.getRecipesAdapter());
         }
+
 
         return root;
     }

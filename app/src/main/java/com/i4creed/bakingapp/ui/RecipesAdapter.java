@@ -76,7 +76,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     }
 
     /**
-     * ViewHolder for the list items of recipes
+     * StepViewHolder for the list items of recipes
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.recipe_title)
@@ -87,6 +87,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         @Override
