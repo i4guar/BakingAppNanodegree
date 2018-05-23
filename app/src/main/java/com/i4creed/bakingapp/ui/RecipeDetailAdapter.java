@@ -1,9 +1,13 @@
 package com.i4creed.bakingapp.ui;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.i4creed.bakingapp.IngredientsWidget;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.MyUtil;
 import com.i4creed.bakingapp.model.Ingredient;
@@ -154,11 +159,12 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         public void bind() {
+            final Context context = ingredients.getContext();
             recipeTitle.setText(recipe.getName());
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             llp.setMarginStart(16);
             for (Ingredient i: recipe.getIngredients()) {
-                TextView tv = new TextView(ingredients.getContext());
+                TextView tv = new TextView(context);
                 tv.setTextColor(Color.WHITE);
                 tv.setLayoutParams(llp);
                 tv.setText(String.format("%s: %s %s", i.getIngredient(), i.getQuantity(), i.getMeasure()));
@@ -168,10 +174,20 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v) {
                     String json = recipe == null ? null : new Gson().toJson(recipe);
-                    SharedPreferences sharedPreferences = ingredients.getContext().getSharedPreferences("preference_file_key",Context.MODE_PRIVATE);
-                    sharedPreferences.edit().putString("recipe", json).apply();
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key),Context.MODE_PRIVATE);
+                    sharedPreferences.edit().putString(context.getString(R.string.recipe_key_sp), json).apply();
+                    updateWidget(context);
                 }
             });
+        }
+
+
+        public void updateWidget(Context context) {
+            Intent intent = new Intent(context, IngredientsWidget.class);
+            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IngredientsWidget.class));
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            context.sendBroadcast(intent);
         }
     }
 

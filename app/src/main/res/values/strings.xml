@@ -6,4 +6,6 @@
     <string name="number_of_servings_icon">Number of servings icon</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="preference_file_key">preference_file_key</string>
+    <string name="recipe_key_sp">recipe</string>
 </resources>

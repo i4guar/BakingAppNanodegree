@@ -4,17 +4,21 @@
     android:padding="@dimen/widget_margin"
     android:background="@color/primaryDarkColor" >
 
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_margin="8dp"
+        android:textColor="@android:color/white"
+        android:orientation="vertical" />
 
     <TextView
         android:id="@+id/ingredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="multiline }\n is pssimpel\n astes\n safdasdf\n fdasgs\nfasda"
         android:layout_margin="8dp"
         android:textColor="@android:color/white"
-        android:orientation="vertical">
-
-
-    </TextView>
+        android:orientation="vertical" />
 
 </RelativeLayout>

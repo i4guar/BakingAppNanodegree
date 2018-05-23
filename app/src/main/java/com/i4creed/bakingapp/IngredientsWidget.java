@@ -21,22 +21,21 @@ public class IngredientsWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("preference_file_key",Context.MODE_PRIVATE);
-        String json = sharedPreferences.getString("recipe", null);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString(context.getString(R.string.recipe_key_sp), null);
         Recipe recipe = json == null ? null : new Gson().fromJson(json, Recipe.class);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
         String widgetText = "";
-        if (recipe != null){
-            widgetText += "Ingredients for " + recipe.getName() + "\n";
-            for (Ingredient i :
-                    recipe.getIngredients()) {
+        if (recipe != null) {
+            for (Ingredient i : recipe.getIngredients()) {
                 widgetText += i.getIngredient() + ": " + i.getQuantity() + " " + i.getMeasure() + "\n";
             }
         } else {
             widgetText = "Add a recipe to see your ingredients";
         }
         views.setTextViewText(R.id.ingredients, widgetText);
+        views.setTextViewText(R.id.widget_title, "Ingredients for " + recipe.getName());
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         views.setOnClickPendingIntent(R.id.ingredients, pendingIntent);
