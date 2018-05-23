@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.i4creed.bakingapp.IngredientsWidget;
+import com.i4creed.bakingapp.widget.IngredientsWidget;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.MyUtil;
 import com.i4creed.bakingapp.model.Ingredient;

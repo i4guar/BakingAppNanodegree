@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/primaryDarkColor"
-        android:text="ADD TO WIDGET"
+        android:text="SHOW IN WIDGET"
         android:backgroundTint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

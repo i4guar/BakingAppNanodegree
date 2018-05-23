@@ -1,4 +1,4 @@
-package com.i4creed.bakingapp;
+package com.i4creed.bakingapp.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -6,9 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
+import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Ingredient;
 import com.i4creed.bakingapp.model.Recipe;
 import com.i4creed.bakingapp.ui.MainActivity;
@@ -18,6 +20,8 @@ import com.i4creed.bakingapp.ui.MainActivity;
  */
 public class IngredientsWidget extends AppWidgetProvider {
 
+    public static String EXTRA_ITEM = "com.i4creed.IngredientsWidget.EXTRA_ITEM";
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
@@ -26,19 +30,19 @@ public class IngredientsWidget extends AppWidgetProvider {
         Recipe recipe = json == null ? null : new Gson().fromJson(json, Recipe.class);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
-        String widgetText = "";
-        if (recipe != null) {
-            for (Ingredient i : recipe.getIngredients()) {
-                widgetText += i.getIngredient() + ": " + i.getQuantity() + " " + i.getMeasure() + "\n";
-            }
-        } else {
-            widgetText = "Add a recipe to see your ingredients";
-        }
-        views.setTextViewText(R.id.ingredients, widgetText);
+
+        //RemoteViews Service needed to provide adapter for ListView
+        Intent svcIntent = new Intent(context, WidgetService.class);
+        svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        //setting adapter to listview of the widget
+        views.setRemoteAdapter(R.id.widget_list,svcIntent);
+
         views.setTextViewText(R.id.widget_title, "Ingredients for " + recipe.getName());
+        views.setEmptyView(R.id.widget_list, R.id.empty_view);
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.ingredients, pendingIntent);
+        //views.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
