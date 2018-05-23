@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
+import com.i4creed.bakingapp.MyUtil;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Ingredient;
 import com.i4creed.bakingapp.model.Recipe;
@@ -25,9 +26,7 @@ public class IngredientsWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String json = sharedPreferences.getString(context.getString(R.string.recipe_key_sp), null);
-        Recipe recipe = json == null ? null : new Gson().fromJson(json, Recipe.class);
+        Recipe recipe = MyUtil.getStoredRecipe(context);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
 
@@ -42,7 +41,7 @@ public class IngredientsWidget extends AppWidgetProvider {
         views.setEmptyView(R.id.widget_list, R.id.empty_view);
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        //views.setOnClickPendingIntent(R.id.widget_list, pendingIntent);
+        views.setOnClickPendingIntent(R.id.widget_frame, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

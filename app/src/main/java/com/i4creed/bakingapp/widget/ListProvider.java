@@ -14,6 +14,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.google.gson.Gson;
+import com.i4creed.bakingapp.MyUtil;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Ingredient;
 import com.i4creed.bakingapp.model.Recipe;
@@ -39,10 +40,7 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onCreate() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String json = sharedPreferences.getString(context.getString(R.string.recipe_key_sp), null);
-        Recipe recipe = json == null ? null : new Gson().fromJson(json, Recipe.class);
-        Collections.addAll(listItemList, recipe.getIngredients());
+        Collections.addAll(listItemList, MyUtil.getStoredRecipe(context).getIngredients());
     }
 
     @Override

@@ -47,6 +47,15 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.recipe = recipe;
     }
 
+    public void updateAddToWidgetButton (Button btn, Context context) {
+        Recipe storedRecipe = MyUtil.getStoredRecipe(context);
+        if (storedRecipe.getId() == recipe.getId()) {
+            btn.setEnabled(false);
+            btn.setActivated(false);
+            btn.setText("IS SHOWN IN WIDGET");
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,6 +63,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case INFO_ITEM:
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.recipe_info_item, parent, false);
+
                 return new InfoViewHolder(view);
             case STEP_ITEM:
             default:
@@ -169,12 +179,14 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 tv.setText(String.format("%s: %s %s", i.getIngredient(), i.getQuantity(), i.getMeasure()));
                 ingredients.addView(tv);
             }
+            updateAddToWidgetButton(addToWidget, context);
             addToWidget.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String json = recipe == null ? null : new Gson().toJson(recipe);
                     SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key),Context.MODE_PRIVATE);
                     sharedPreferences.edit().putString(context.getString(R.string.recipe_key_sp), json).apply();
+                    updateAddToWidgetButton(addToWidget, context);
                     updateWidget(context);
                 }
             });
