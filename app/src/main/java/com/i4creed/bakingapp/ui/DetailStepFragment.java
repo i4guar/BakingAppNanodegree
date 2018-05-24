@@ -40,8 +40,6 @@ import butterknife.ButterKnife;
  */
 public class DetailStepFragment extends Fragment {
 
-    private static final String CURRENT_RECIPE_STEP_INDEX = "current_recipe_step_index";
-    private static final String RECIPE = "recipe";
     @Nullable
     @BindView(R.id.next)
     Button next;
@@ -67,14 +65,18 @@ public class DetailStepFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            recipe = savedInstanceState.getParcelable(RECIPE);
-            stepIndex = savedInstanceState.getInt(CURRENT_RECIPE_STEP_INDEX);
+            recipe = savedInstanceState.getParcelable(getString(R.string.recipe_key));
+            stepIndex = savedInstanceState.getInt(getString(R.string.current_recipe_step_index_key));
+            playbackPosition = savedInstanceState.getLong(getString(R.string.playback_pos_key));
+            currentWindow = savedInstanceState.getInt(getString(R.string.current_window_key));
+            playWhenReady = savedInstanceState.getBoolean(getString(R.string.play_when_ready_key));
+
         }
+
         main = (MainActivity) getActivity();
         main.showUpButton();
 
@@ -128,8 +130,6 @@ public class DetailStepFragment extends Fragment {
 
             playerView.setPlayer(player);
 
-            player.setPlayWhenReady(playWhenReady);
-            player.seekTo(currentWindow, playbackPosition);
             String url = null;
             if (!MyUtil.empty(recipeStep.getThumbnailURL())) {
                 url = recipeStep.getThumbnailURL();
@@ -139,6 +139,9 @@ public class DetailStepFragment extends Fragment {
             Uri uri = Uri.parse(url);
             MediaSource mediaSource = buildMediaSource(uri);
             player.prepare(mediaSource, true, false);
+
+            player.setPlayWhenReady(playWhenReady);
+            player.seekTo(currentWindow, playbackPosition);
         }
 
     }
@@ -191,8 +194,16 @@ public class DetailStepFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(RECIPE, recipe);
-        outState.putInt(CURRENT_RECIPE_STEP_INDEX, stepIndex);
+
+        playbackPosition = player.getCurrentPosition();
+        currentWindow = player.getCurrentWindowIndex();
+        playWhenReady = player.getPlayWhenReady();
+        outState.putParcelable(getString(R.string.recipe_key), recipe);
+        outState.putInt(getString(R.string.current_recipe_step_index_key), stepIndex);
+        outState.putLong(getString(R.string.playback_pos_key), playbackPosition);
+        outState.putInt(getString(R.string.current_window_key), currentWindow);
+        outState.putBoolean(getString(R.string.play_when_ready_key), playWhenReady);
+
     }
 
     /**

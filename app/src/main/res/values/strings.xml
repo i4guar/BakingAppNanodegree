@@ -13,4 +13,9 @@
     <string name="previous_btn">Previous</string>
     <string name="is_shown_in_widget_btn">IS SHOWN IN WIDGET</string>
     <string name="recipes_url_fail">Retrieval failed.</string>
+    <string name="recipe_key">recipe</string>
+    <string name="current_recipe_step_index_key">current_recipe_step_index</string>
+    <string name="playback_pos_key">playbackPositionKey</string>
+    <string name="current_window_key">currentWindowKey</string>
+    <string name="play_when_ready_key">playWhenReadyKey</string>
 </resources>
