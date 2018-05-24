@@ -186,19 +186,15 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     String json = recipe == null ? null : new Gson().toJson(recipe);
                     SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key),Context.MODE_PRIVATE);
                     sharedPreferences.edit().putString(context.getString(R.string.recipe_key_sp), json).apply();
-                    updateAddToWidgetButton(addToWidget, context);
                     updateWidget(context);
+                    updateAddToWidgetButton(addToWidget, context);
                 }
             });
         }
 
 
         public void updateWidget(Context context) {
-            Intent intent = new Intent(context, IngredientsWidget.class);
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IngredientsWidget.class));
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-            context.sendBroadcast(intent);
+            IngredientsWidget.updateAllAppWidgets(context);
         }
     }
 

@@ -3,6 +3,7 @@ package com.i4creed.bakingapp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -53,7 +54,13 @@ public class IngredientsWidget extends AppWidgetProvider {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
-
+    public static void updateAllAppWidgets(Context context) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(context, IngredientsWidget.class));
+        for (int id:ids) {
+            updateAppWidget(context, appWidgetManager, id);
+        }
+    }
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
