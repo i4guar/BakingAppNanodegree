@@ -1,46 +1,35 @@
 package com.i4creed.bakingapp.widget;
 
-/**
- * Created by felix on 23-May-18 at 10:55.
- */
-
-import android.app.LauncherActivity;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.google.gson.Gson;
-import com.i4creed.bakingapp.MyUtil;
+import com.i4creed.bakingapp.util.MyUtil;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Ingredient;
-import com.i4creed.bakingapp.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
- * If you are familiar with Adapter of ListView,this is the same as adapter
- * with few changes
- *
+ * Adapter for the list view in the widget.
  */
-public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
-    private final int mAppWidgetId;
+class ListProvider implements RemoteViewsService.RemoteViewsFactory {
     private ArrayList<Ingredient> listItemList = new ArrayList<>();
     private Context context;
 
     public ListProvider(Context context, Intent intent) {
         this.context = context;
-        mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+        int mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
     }
 
     @Override
     public void onCreate() {
-        Collections.addAll(listItemList, MyUtil.getStoredRecipe(context).getIngredients());
+        Collections.addAll(listItemList, Objects.requireNonNull(MyUtil.getStoredRecipe(context)).getIngredients());
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.i4creed.bakingapp.ui;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -19,7 +16,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.i4creed.bakingapp.widget.IngredientsWidget;
 import com.i4creed.bakingapp.R;
-import com.i4creed.bakingapp.MyUtil;
+import com.i4creed.bakingapp.util.MyUtil;
 import com.i4creed.bakingapp.model.Ingredient;
 import com.i4creed.bakingapp.model.Recipe;
 import com.i4creed.bakingapp.model.RecipeStep;
@@ -28,6 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * This class handles the data needed for the detail of a recipe like the ingredients and the
+ * instruction and is an adapter for the recycler view.
  * Created by felix on 17-May-18 at 16:02.
  */
 public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -47,12 +46,17 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.recipe = recipe;
     }
 
-    public void updateAddToWidgetButton (Button btn, Context context) {
+    /**
+     * Refreshes the ui of the add to widget button.
+     * @param btn btn to update.
+     * @param context current context.
+     */
+    private void updateAddToWidgetButton(Button btn, Context context) {
         Recipe storedRecipe = MyUtil.getStoredRecipe(context);
-        if (storedRecipe.getId() == recipe.getId()) {
+        if ((storedRecipe != null ? storedRecipe.getId() : -1) == recipe.getId()) {
             btn.setEnabled(false);
             btn.setActivated(false);
-            btn.setText("IS SHOWN IN WIDGET");
+            btn.setText(R.string.is_shown_in_widget_btn);
         }
     }
 
@@ -110,16 +114,16 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     /**
-     * Click listener for list items
+     * Click listener for list items.
      */
     public interface InstructionClickListener {
         void onStepItemClick(int index);
     }
 
     /**
-     * StepViewHolder for the list items of recipes
+     * StepViewHolder for the list items of recipes.
      */
-    public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         RecipeStep recipeStep;
 
@@ -128,7 +132,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @BindView(R.id.instruction_type)
         ImageView instructionType;
 
-        public StepViewHolder(View itemView) {
+        StepViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -139,9 +143,9 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             onClickListener.onStepItemClick(getAdapterPosition() - 1);
         }
 
-        public void bind(RecipeStep step) {
+        void bind(RecipeStep step) {
             recipeStep = step;
-            if(MyUtil.empty(step.getThumnailURL()) && MyUtil.empty(step.getVideoURL())) {
+            if(MyUtil.empty(step.getThumbnailURL()) && MyUtil.empty(step.getVideoURL())) {
                 instructionType.setBackgroundResource(R.drawable.ic_text_fields_black_24dp);
             }else {
                 instructionType.setBackgroundResource(R.drawable.ic_play_circle);
@@ -151,9 +155,9 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     /**
-     * StepViewHolder for the list items of recipes
+     * InfoViewHolder for the info item at the top.
      */
-    public class InfoViewHolder extends RecyclerView.ViewHolder {
+    class InfoViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.add_to_widget)
         Button addToWidget;
@@ -162,12 +166,12 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @BindView(R.id.ingredients)
         LinearLayout ingredients;
 
-        public InfoViewHolder(View itemView) {
+        InfoViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind() {
+        void bind() {
             final Context context = ingredients.getContext();
             recipeTitle.setText(recipe.getName());
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -193,7 +197,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
 
-        public void updateWidget(Context context) {
+        void updateWidget(Context context) {
             IngredientsWidget.updateAllAppWidgets(context);
         }
     }

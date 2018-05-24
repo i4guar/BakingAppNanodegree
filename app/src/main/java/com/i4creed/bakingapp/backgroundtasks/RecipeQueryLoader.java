@@ -1,7 +1,6 @@
 package com.i4creed.bakingapp.backgroundtasks;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 import android.widget.Toast;
 
@@ -12,19 +11,23 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * Loaders fetches the Recipes from url
  * Created by felix on 16-May-18 at 21:00.
  */
 public class RecipeQueryLoader extends Loader<ArrayList<Recipe>> {
 
 
+    /**
+     * URL to fetch recipes from
+     */
     private static final String URL_RECIPE = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
-
 
     private Recipe[] recipes;
 
@@ -56,7 +59,7 @@ public class RecipeQueryLoader extends Loader<ArrayList<Recipe>> {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Retrevial failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.recipes_url_fail, Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(stringRequest);

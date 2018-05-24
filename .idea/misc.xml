@@ -1,5 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.model.Ingredient CREATOR" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.widget.IngredientsWidget EXTRA_ITEM" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.MainActivity mainContainer" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.MainActivityBasicTest activityTestRule" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.model.Recipe CREATOR" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter.StepViewHolder recipeStep" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.model.RecipeStep CREATOR" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.DetailStepFragment recipeStep" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.DetailStepFragment playerView" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.DetailStepFragment descriptionTv" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.DetailStepFragment previous" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.DetailStepFragment next" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.widget.ListProvider context" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.MainActivity twoPane" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.MainActivity detailContainer" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter.InfoViewHolder ingredients" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter.InfoViewHolder recipeTitle" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter.InfoViewHolder addToWidget" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter.StepViewHolder instructionType" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter.StepViewHolder shortDescription" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailAdapter recipe" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipeDetailFragment recipeDetailRv" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipesAdapter.ViewHolder recipeServingsTv" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipesAdapter.ViewHolder recipeTitleTv" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipesAdapter recipeList" />
+      <entry_point TYPE="field" FQNAME="com.i4creed.bakingapp.ui.RecipesFragment recipesRecyclerView" />
+    </entry_points>
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="getRecipeStep" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="DetailStepFragment" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" />
+    <pattern value="com.i4creed.bakingapp.ExampleInstrumentedTest" method="useAppContext" />
+    <pattern value="com.i4creed.bakingapp.ExampleInstrumentedTest" />
+    <pattern value="com.i4creed.bakingapp.ExampleUnitTest" method="addition_isCorrect" />
+    <pattern value="com.i4creed.bakingapp.ExampleUnitTest" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" method="setIngredient" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" method="setMeasure" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" method="setQuantity" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" />
+    <pattern value="com.i4creed.bakingapp.widget.IngredientsWidget" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="ListProvider" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="setTwoPane" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" />
+    <pattern value="com.i4creed.bakingapp.MainActivityBasicTest" method="chooseRecipeFromRecyclerView" />
+    <pattern value="com.i4creed.bakingapp.MainActivityBasicTest" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="setImage" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="getImage" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="setServings" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="setSteps" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="setIngredients" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="setName" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="setId" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter.StepViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" method="getRecipe" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" method="RecipeDetailAdapter" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailFragment" method="RecipeDetailFragment" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailFragment" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="setThumbnailURL" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="setVideoURL" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="setDescription" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="setShortDescription" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="setId" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="getId" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesAdapter" method="RecipesAdapter" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesAdapter" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesFragment" method="RecipesFragment" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesFragment" />
+    <pattern value="com.i4creed.bakingapp.widget.WidgetService" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="onSaveInstanceState" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="onStop" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="onPause" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="onResume" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="onStart" />
+    <pattern value="com.i4creed.bakingapp.ui.DetailStepFragment" method="onCreateView" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" method="describeContents" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" method="writeToParcel" />
+    <pattern value="com.i4creed.bakingapp.model.Ingredient" method="Ingredient" />
+    <pattern value="com.i4creed.bakingapp.widget.IngredientsWidget" method="onDisabled" />
+    <pattern value="com.i4creed.bakingapp.widget.IngredientsWidget" method="onEnabled" />
+    <pattern value="com.i4creed.bakingapp.widget.IngredientsWidget" method="onUpdate" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="getViewTypeCount" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="getLoadingView" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="getViewAt" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="hasStableIds" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="getItemId" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="getCount" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="onDestroy" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="onDataSetChanged" />
+    <pattern value="com.i4creed.bakingapp.widget.ListProvider" method="onCreate" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onRestoreInstanceState" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onSaveInstanceState" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onListItemClick" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onStepItemClick" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onLoaderReset" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onLoadFinished" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onCreateLoader" />
+    <pattern value="com.i4creed.bakingapp.ui.MainActivity" method="onCreate" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="describeContents" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="writeToParcel" />
+    <pattern value="com.i4creed.bakingapp.model.Recipe" method="Recipe" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter.InfoViewHolder" method="InfoViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter.InfoViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter.StepViewHolder" method="onClick" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter.StepViewHolder" method="StepViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" method="getItemViewType" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" method="getItemCount" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" method="onBindViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailAdapter" method="onCreateViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipeDetailFragment" method="onCreateView" />
+    <pattern value="com.i4creed.bakingapp.backgroundtasks.RecipeQueryLoader" method="RecipeQueryLoader" />
+    <pattern value="com.i4creed.bakingapp.backgroundtasks.RecipeQueryLoader" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="describeContents" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="writeToParcel" />
+    <pattern value="com.i4creed.bakingapp.model.RecipeStep" method="RecipeStep" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesAdapter.ViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesAdapter" method="getItemCount" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesAdapter" method="onBindViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesAdapter" method="onCreateViewHolder" />
+    <pattern value="com.i4creed.bakingapp.ui.RecipesFragment" method="onCreateView" />
+    <pattern value="com.i4creed.bakingapp.widget.WidgetService" method="onGetViewFactory" />
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />

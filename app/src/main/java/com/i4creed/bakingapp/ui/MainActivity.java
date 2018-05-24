@@ -13,18 +13,19 @@ import android.widget.FrameLayout;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.backgroundtasks.RecipeQueryLoader;
 import com.i4creed.bakingapp.model.Recipe;
-import com.i4creed.bakingapp.model.RecipeStep;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * This class is the main activity.
+ */
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Recipe>>, RecipesAdapter.ListItemClickListener, RecipeDetailAdapter.InstructionClickListener {
 
-    public static final String CURRENT_RECIPE = "currentRecipe";
-    public static final String FULLSCREEN_TAG = "fullscreen_tag";
+    private static final String CURRENT_RECIPE = "currentRecipe";
+    private static final String FULLSCREEN_TAG = "fullscreen_tag";
 
     private static final int RECIPE_QUERY_LOADER = 22;
     @BindView(R.id.main_container)
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Nullable
     @BindView(R.id.detail_container)
     FrameLayout detailContainer;
-    boolean twoPane = false;
+    private boolean twoPane = false;
     private RecipesAdapter recipesAdapter = new RecipesAdapter(this);
     private RecipeDetailAdapter recipeDetailAdapter = new RecipeDetailAdapter(this);
     private Recipe currentRecipe;
@@ -132,11 +133,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setCurrentRecipe((Recipe) savedInstanceState.getParcelable(CURRENT_RECIPE));
     }
 
-    public Recipe getCurrentRecipe() {
+    private Recipe getCurrentRecipe() {
         return currentRecipe;
     }
 
-    public void setCurrentRecipe(Recipe currentRecipe) {
+    private void setCurrentRecipe(Recipe currentRecipe) {
         this.currentRecipe = currentRecipe;
         recipeDetailAdapter.setRecipe(currentRecipe);
     }

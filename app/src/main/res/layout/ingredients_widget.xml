@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primaryDarkColor">
+    android:background="@color/primaryDarkColor"
+    tools:ignore="Overdraw">
     <TextView
         android:id="@+id/widget_title"
         android:layout_width="wrap_content"
@@ -25,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Add a recipe  to see the ingredients"
+        android:text="@string/empty_widget_info"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold" />

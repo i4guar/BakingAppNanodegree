@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * This class models an ingredient
  * Created by felix on 07-May-18 at 17:22.
  */
 public class Ingredient implements Parcelable {
@@ -11,7 +12,7 @@ public class Ingredient implements Parcelable {
     private String measure;
     private String ingredient;
 
-    protected Ingredient(Parcel in) {
+    private Ingredient(Parcel in) {
         quantity = in.readDouble();
         measure = in.readString();
         ingredient = in.readString();
@@ -41,26 +42,50 @@ public class Ingredient implements Parcelable {
         }
     };
 
+    /**
+     * Returns the quantity.
+     * @return quantity.
+     */
     public double getQuantity() {
         return quantity;
     }
 
+    /**
+     * Sets the quantity.
+     * @param quantity quantity.
+     */
     public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     * Returns the measurement unit.
+     * @return measurement unit.
+     */
     public String getMeasure() {
         return measure;
     }
 
+    /**
+     * Sets the measurement unit.
+     * @param measure measurement unit.
+     */
     public void setMeasure(String measure) {
         this.measure = measure;
     }
 
+    /**
+     * Returns the name of the ingredient.
+     * @return name of ingredient.
+     */
     public String getIngredient() {
         return ingredient;
     }
 
+    /**
+     * Sets the name of the ingredient.
+     * @param ingredient name of ingredient.
+     */
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }

@@ -2,10 +2,15 @@
     <string name="app_name">Baking App</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="number_of_servings_icon">Number of servings icon</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="preference_file_key">preference_file_key</string>
     <string name="recipe_key_sp">recipe</string>
+    <string name="type_of_instruction_accessibility">Type of instruction video or text</string>
+    <string name="standard_number_of_servings">0</string>
+    <string name="empty_widget_info">Add a recipe to see the ingredients</string>
+    <string name="show_in_widget_btn">SHOW IN WIDGET</string>
+    <string name="next_btn">Next</string>
+    <string name="previous_btn">Previous</string>
+    <string name="is_shown_in_widget_btn">IS SHOWN IN WIDGET</string>
+    <string name="recipes_url_fail">Retrieval failed.</string>
 </resources>

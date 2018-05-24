@@ -2,6 +2,7 @@ package com.i4creed.bakingapp.ui;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,14 +16,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass which displays the detail of a recipe.
  */
 public class RecipeDetailFragment extends Fragment {
 
     @BindView(R.id.recipe_detail_list)
     RecyclerView recipeDetailRv;
-
-    MainActivity main;
 
     public RecipeDetailFragment() {
         // Required empty public constructor
@@ -30,14 +29,14 @@ public class RecipeDetailFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
         ButterKnife.bind(this, root);
 
         recipeDetailRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        main = (MainActivity) getActivity();
+        MainActivity main = (MainActivity) getActivity();
         if (main != null) {
             recipeDetailRv.setAdapter(main.getRecipeDetailAdapter());
         }

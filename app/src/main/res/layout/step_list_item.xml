@@ -15,7 +15,8 @@
         android:background="@drawable/ic_play_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/type_of_instruction_accessibility" />
 
     <TextView
         android:id="@+id/short_description"

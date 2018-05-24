@@ -21,6 +21,7 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
+        //noinspection SpellCheckingInspection
         assertEquals("com.i4creed.bakingapp", appContext.getPackageName());
     }
 }

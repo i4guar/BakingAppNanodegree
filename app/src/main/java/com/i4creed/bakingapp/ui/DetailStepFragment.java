@@ -23,10 +23,12 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.i4creed.bakingapp.MyUtil;
+import com.i4creed.bakingapp.util.MyUtil;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Recipe;
 import com.i4creed.bakingapp.model.RecipeStep;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,10 +38,10 @@ import butterknife.ButterKnife;
  */
 public class DetailStepFragment extends Fragment {
 
-    public static final String CURRENT_RECIPE_STEP_INDEX = "current_recipe_step_index";
-    public static final String RECIPE = "recipe";
+    private static final String CURRENT_RECIPE_STEP_INDEX = "current_recipe_step_index";
+    private static final String RECIPE = "recipe";
 
-    SimpleExoPlayer player;
+    private SimpleExoPlayer player;
 
     @Nullable
     @BindView(R.id.next)
@@ -56,9 +58,9 @@ public class DetailStepFragment extends Fragment {
     @BindView(R.id.video_view)
     PlayerView playerView;
 
-    RecipeStep recipeStep;
-    Recipe recipe;
-    int stepIndex;
+    private RecipeStep recipeStep;
+    private Recipe recipe;
+    private int stepIndex;
 
     private boolean playWhenReady = true;
     private int currentWindow = 0;
@@ -70,7 +72,7 @@ public class DetailStepFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             recipe = savedInstanceState.getParcelable(RECIPE);
@@ -87,24 +89,24 @@ public class DetailStepFragment extends Fragment {
         if (descriptionTv != null) {
             descriptionTv.setText(recipeStep.getDescription());
             if(stepIndex == 0) {
-                previous.setEnabled(false);
+                Objects.requireNonNull(previous).setEnabled(false);
             }
 
             if(stepIndex == recipe.getSteps().length - 1) {
-                next.setEnabled(false);
+                Objects.requireNonNull(next).setEnabled(false);
             }
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     stepIndex += 1;
-                    getFragmentManager().beginTransaction().detach(DetailStepFragment.this).attach(DetailStepFragment.this).commit();
+                    Objects.requireNonNull(getFragmentManager()).beginTransaction().detach(DetailStepFragment.this).attach(DetailStepFragment.this).commit();
                 }
             });
             previous.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     stepIndex -= 1;
-                    getFragmentManager().beginTransaction().detach(DetailStepFragment.this).attach(DetailStepFragment.this).commit();
+                    Objects.requireNonNull(getFragmentManager()).beginTransaction().detach(DetailStepFragment.this).attach(DetailStepFragment.this).commit();
                 }
             });
         }
@@ -113,9 +115,12 @@ public class DetailStepFragment extends Fragment {
     }
 
 
+    /**
+     * Initializes the Exoplayer.
+     */
     private void initializePlayer() {
 
-        if (MyUtil.empty(recipeStep.getThumnailURL()) && MyUtil.empty(recipeStep.getVideoURL())) {
+        if (MyUtil.empty(recipeStep.getThumbnailURL()) && MyUtil.empty(recipeStep.getVideoURL())) {
             playerView.setVisibility(View.GONE);
         } else {
             player = ExoPlayerFactory.newSimpleInstance(
@@ -127,8 +132,8 @@ public class DetailStepFragment extends Fragment {
             player.setPlayWhenReady(playWhenReady);
             player.seekTo(currentWindow, playbackPosition);
             String url = null;
-            if (!MyUtil.empty(recipeStep.getThumnailURL())) {
-                url = recipeStep.getThumnailURL();
+            if (!MyUtil.empty(recipeStep.getThumbnailURL())) {
+                url = recipeStep.getThumbnailURL();
             } else if (!MyUtil.empty(recipeStep.getVideoURL())) {
                 url = recipeStep.getVideoURL();
             }
@@ -189,6 +194,9 @@ public class DetailStepFragment extends Fragment {
         outState.putInt(CURRENT_RECIPE_STEP_INDEX, stepIndex);
     }
 
+    /**
+     * Releases the Exoplayer.
+     */
     private void releasePlayer() {
         if (player != null) {
             playbackPosition = player.getCurrentPosition();
@@ -199,16 +207,30 @@ public class DetailStepFragment extends Fragment {
         }
     }
 
+    /**
+     * Builds the media source.
+     * @param uri to build upon.
+     * @return media source.
+     */
     private MediaSource buildMediaSource(Uri uri) {
         return new ExtractorMediaSource.Factory(
                 new DefaultHttpDataSourceFactory("exoplayer-codelab")).
                 createMediaSource(uri);
     }
 
+    /**
+     * Returns the recipe step.
+     * @return recipe step.
+     */
     public RecipeStep getRecipeStep() {
         return recipeStep;
     }
 
+    /**
+     * Sets the recipe step
+     * @param recipe
+     * @param index
+     */
     public void setRecipeStep(Recipe recipe, int index) {
         this.recipe = recipe;
         this.stepIndex = index;

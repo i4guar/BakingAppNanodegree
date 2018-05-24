@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * This class handles the list of recipes and is an adapter for the recycler view.
  * Created by felix on 16-May-18 at 21:56.
  */
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
@@ -84,7 +85,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         @BindView(R.id.recipe_servings)
         TextView recipeServingsTv;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -96,7 +97,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             onClickListener.onListItemClick(clickedPosition);
         }
 
-        public void bind(Recipe recipe) {
+        void bind(Recipe recipe) {
             recipeTitleTv.setText(recipe.getName());
             recipeServingsTv.setText(String.valueOf(recipe.getServings()));
         }
