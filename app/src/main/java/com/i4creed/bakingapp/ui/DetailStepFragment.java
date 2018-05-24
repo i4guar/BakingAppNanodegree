@@ -9,10 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -29,6 +29,7 @@ import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Recipe;
 import com.i4creed.bakingapp.model.RecipeStep;
 import com.i4creed.bakingapp.util.MyUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -49,6 +50,9 @@ public class DetailStepFragment extends Fragment {
     @Nullable
     @BindView(R.id.description)
     TextView descriptionTv;
+    @Nullable
+    @BindView(R.id.thumbnail)
+    ImageView thumbnail;
     @BindView(R.id.video_view)
     PlayerView playerView;
     MainActivity main;
@@ -86,7 +90,6 @@ public class DetailStepFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_detail_step, container, false);
         ButterKnife.bind(this, root);
 
-        //descriptionTv == null --> In Landscape mode
         if (descriptionTv != null) {
             descriptionTv.setText(recipeStep.getDescription());
             if (stepIndex == 0) {
@@ -100,6 +103,7 @@ public class DetailStepFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     stepIndex += 1;
+                    resetPlayerProperties();
                     Objects.requireNonNull(getFragmentManager()).beginTransaction().detach(DetailStepFragment.this).attach(DetailStepFragment.this).commit();
                 }
             });
@@ -107,6 +111,7 @@ public class DetailStepFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     stepIndex -= 1;
+                    resetPlayerProperties();
                     Objects.requireNonNull(getFragmentManager()).beginTransaction().detach(DetailStepFragment.this).attach(DetailStepFragment.this).commit();
                 }
             });
@@ -115,15 +120,35 @@ public class DetailStepFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Resets the player properties.
+     */
+    private void resetPlayerProperties() {
+        playWhenReady = true;
+        currentWindow = 0;
+        playbackPosition = 0;
+        if (player != null) {
+            player.setPlayWhenReady(playWhenReady);
+            player.seekTo(currentWindow, playbackPosition);
+
+        }
+    }
 
     /**
      * Initializes the Exoplayer.
      */
     private void initializePlayer() {
 
-        if (MyUtil.empty(recipeStep.getThumbnailURL()) && MyUtil.empty(recipeStep.getVideoURL())) {
+        if (MyUtil.empty(recipeStep.getVideoURL())) {
             playerView.setVisibility(View.GONE);
+            if (MyUtil.empty(recipeStep.getThumbnailURL())) {
+                thumbnail.setVisibility(View.GONE);
+            } else {
+                Picasso.get().load(recipeStep.getThumbnailURL()).into(thumbnail);
+
+            }
         } else {
+            thumbnail.setVisibility(View.GONE);
             player = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(getContext()),
                     new DefaultTrackSelector(), new DefaultLoadControl());
@@ -157,7 +182,7 @@ public class DetailStepFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !main.isTwoPane() ) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !main.isTwoPane()) {
             hideSystemUi();
         }
         if ((Util.SDK_INT <= 23 || player == null)) {

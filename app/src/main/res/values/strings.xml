@@ -18,4 +18,5 @@
     <string name="playback_pos_key">playbackPositionKey</string>
     <string name="current_window_key">currentWindowKey</string>
     <string name="play_when_ready_key">playWhenReadyKey</string>
+    <string name="thumbnail_of_step">thumbnail of this step</string>
 </resources>
