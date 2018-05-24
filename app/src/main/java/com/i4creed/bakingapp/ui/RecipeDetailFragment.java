@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +23,7 @@ public class RecipeDetailFragment extends Fragment {
 
     @BindView(R.id.recipe_detail_list)
     RecyclerView recipeDetailRv;
+    MainActivity main;
 
     public RecipeDetailFragment() {
         // Required empty public constructor
@@ -36,11 +38,14 @@ public class RecipeDetailFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         recipeDetailRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        MainActivity main = (MainActivity) getActivity();
+        main = (MainActivity) getActivity();
+        main.showUpButton();
         if (main != null) {
             recipeDetailRv.setAdapter(main.getRecipeDetailAdapter());
         }
 
-        return root;    }
+        return root;
+    }
+
 
 }

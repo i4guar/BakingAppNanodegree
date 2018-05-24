@@ -176,6 +176,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             recipeTitle.setText(recipe.getName());
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             llp.setMarginStart(16);
+            ingredients.removeAllViews();
             for (Ingredient i: recipe.getIngredients()) {
                 TextView tv = new TextView(context);
                 tv.setTextColor(Color.WHITE);

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.i4creed.bakingapp.R;
@@ -15,6 +16,7 @@ import com.i4creed.bakingapp.backgroundtasks.RecipeQueryLoader;
 import com.i4creed.bakingapp.model.Recipe;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,6 +142,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void setCurrentRecipe(Recipe currentRecipe) {
         this.currentRecipe = currentRecipe;
         recipeDetailAdapter.setRecipe(currentRecipe);
+    }
+
+    public void showUpButton() {
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    public void hideUpButton() {
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public boolean isTwoPane() {

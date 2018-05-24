@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,6 +24,8 @@ public class RecipesFragment extends Fragment {
     @BindView(R.id.recipes_list)
     RecyclerView recipesRecyclerView;
 
+    MainActivity main;
+
     public RecipesFragment() {
         // Required empty public constructor
     }
@@ -34,7 +37,8 @@ public class RecipesFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_recipes, container, false);
         ButterKnife.bind(this, root);
-        MainActivity main = (MainActivity) getActivity();
+        main = (MainActivity) getActivity();
+        main.hideUpButton();
         if (main != null) {
             int spanCount = 1;
             if(main.isTwoPane()) {

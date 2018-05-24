@@ -2,12 +2,14 @@ package com.i4creed.bakingapp.ui;
 
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,10 +25,10 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.i4creed.bakingapp.util.MyUtil;
 import com.i4creed.bakingapp.R;
 import com.i4creed.bakingapp.model.Recipe;
 import com.i4creed.bakingapp.model.RecipeStep;
+import com.i4creed.bakingapp.util.MyUtil;
 
 import java.util.Objects;
 
@@ -40,31 +42,26 @@ public class DetailStepFragment extends Fragment {
 
     private static final String CURRENT_RECIPE_STEP_INDEX = "current_recipe_step_index";
     private static final String RECIPE = "recipe";
-
-    private SimpleExoPlayer player;
-
     @Nullable
     @BindView(R.id.next)
     Button next;
-
     @Nullable
     @BindView(R.id.previous)
     Button previous;
-
     @Nullable
     @BindView(R.id.description)
     TextView descriptionTv;
-
     @BindView(R.id.video_view)
     PlayerView playerView;
-
+    MainActivity main;
+    private SimpleExoPlayer player;
     private RecipeStep recipeStep;
     private Recipe recipe;
     private int stepIndex;
-
     private boolean playWhenReady = true;
     private int currentWindow = 0;
     private long playbackPosition = 0;
+
 
     public DetailStepFragment() {
         // Required empty public constructor
@@ -78,6 +75,8 @@ public class DetailStepFragment extends Fragment {
             recipe = savedInstanceState.getParcelable(RECIPE);
             stepIndex = savedInstanceState.getInt(CURRENT_RECIPE_STEP_INDEX);
         }
+        main = (MainActivity) getActivity();
+        main.showUpButton();
 
         recipeStep = recipe.getSteps()[stepIndex];
 
@@ -88,11 +87,11 @@ public class DetailStepFragment extends Fragment {
         //descriptionTv == null --> In Landscape mode
         if (descriptionTv != null) {
             descriptionTv.setText(recipeStep.getDescription());
-            if(stepIndex == 0) {
+            if (stepIndex == 0) {
                 Objects.requireNonNull(previous).setEnabled(false);
             }
 
-            if(stepIndex == recipe.getSteps().length - 1) {
+            if (stepIndex == recipe.getSteps().length - 1) {
                 Objects.requireNonNull(next).setEnabled(false);
             }
             next.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +154,9 @@ public class DetailStepFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hideSystemUi();
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !main.isTwoPane() ) {
+            hideSystemUi();
+        }
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
@@ -209,6 +210,7 @@ public class DetailStepFragment extends Fragment {
 
     /**
      * Builds the media source.
+     *
      * @param uri to build upon.
      * @return media source.
      */
@@ -220,6 +222,7 @@ public class DetailStepFragment extends Fragment {
 
     /**
      * Returns the recipe step.
+     *
      * @return recipe step.
      */
     public RecipeStep getRecipeStep() {
@@ -228,6 +231,7 @@ public class DetailStepFragment extends Fragment {
 
     /**
      * Sets the recipe step
+     *
      * @param recipe
      * @param index
      */
@@ -235,5 +239,6 @@ public class DetailStepFragment extends Fragment {
         this.recipe = recipe;
         this.stepIndex = index;
     }
+
 }
 
